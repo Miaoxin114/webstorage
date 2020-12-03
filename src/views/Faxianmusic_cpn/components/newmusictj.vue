@@ -71,7 +71,7 @@ export default {
         month:this.getdate().month
       }).then(res=>{
         console.log(res);
-        this.newmusics=res.data.monthData;
+        this.newmusics=res.data.weekData.slice(0,5);
       }).catch(err=>{
         console.log(err)
       })

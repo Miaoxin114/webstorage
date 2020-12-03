@@ -39,8 +39,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="btnbf" v-show="nowpage>0"><a @click="changepage(false)" href="javascript:;">上一页</a></div>
-            <div class="btngo" v-show="isshow"><a @click="changepage(true)" href="javascript:;">下一页</a></div>
+            <div class="btnbf" v-show="nowpage>0"><a @click="changepage(false)" href="javascript:;"><div>上一页</div></a></div>
+            <div class="btngo" v-show="isshow"><a @click="changepage(true)" href="javascript:;"><div>下一页</div></a></div>
         </div>
     </div>
     </div>
@@ -104,8 +104,14 @@ export default {
               month:this.getdate().month
             }).then(res=>{
               console.log(res);
+              if(res.data.monthData.length>0)
+              {
               this.nwl=res.data.monthData;
               this.newlists=res.data.monthData.slice(0,20);
+              }else{
+                  this.nwl=res.data.weekData;
+                  this.newlists=res.data.weekData.slice(0,20);
+              }
           }).catch(err=>{
             console.log(err)
           })
@@ -134,7 +140,7 @@ export default {
         month:this.getdate().month
       }).then(res=>{
         console.log(res);
-        this.hotlists=res.data.monthData;
+        this.hotlists=res.data.weekData.slice(0,10);
       }).catch(err=>{
         console.log(err)
       })
@@ -147,8 +153,8 @@ export default {
         month:this.getdate().month
       }).then(res=>{
         console.log(res);
-        this.nwl=res.data.monthData;
-        this.newlists=res.data.monthData.slice(0,20);
+        this.nwl=res.data.weekData;
+        this.newlists=res.data.weekData.slice(0,20);
       }).catch(err=>{
         console.log(err)
       })
@@ -284,12 +290,20 @@ export default {
 }
 .btnbf,.btngo{
     display: inline-block;
+     width: 60px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: rgb(194,12,12);
+    border-radius: 3px;
+    display: inline-block;
 }
 .btnbf a,.btngo a{
-    color: black;
+    color: white;
     text-decoration: none;
 }
 .btnbf a:hover,.btngo a:hover{
     text-decoration: underline;
 }
+
 </style>
